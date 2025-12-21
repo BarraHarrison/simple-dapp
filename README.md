@@ -1,57 +1,108 @@
-# Sample Hardhat 3 Beta Project (`mocha` and `ethers`)
+# Simple dApp – React + Solidity Architecture
 
-This project showcases a Hardhat 3 Beta project using `mocha` for tests and the `ethers` library for Ethereum interactions.
+## 📌 Project Overview
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+This project is a **minimal decentralized application (dApp)** built to demonstrate the **core architecture of a real-world Web3 application**.
 
-## Project Overview
+The goal of this project was **not** to build a production-ready application, but to clearly understand and implement the full **frontend → blockchain → wallet** interaction loop using modern tooling.
 
-This example project includes:
+This repository serves as a **reference implementation** that I can return to later when building more advanced fullstack dApps.
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+---
 
-## Usage
+## 🏗️ Architecture Overview
 
-### Running Tests
+The dApp follows the same structure used by real production applications:
 
-To run all the tests in the project, execute the following command:
-
-```shell
-npx hardhat test
+```
+React Frontend
+   ↓
+Ethers.js (v6)
+   ↓
+MetaMask Wallet
+   ↓
+Ethereum Blockchain (Hardhat Local Network)
+   ↓
+Solidity Smart Contract
 ```
 
-You can also selectively run the Solidity or `mocha` tests:
+Each layer is intentionally simple so the overall flow is easy to understand and reason about.
 
-```shell
-npx hardhat test solidity
-npx hardhat test mocha
-```
+---
 
-### Make a deployment to Sepolia
+## 🔧 What Was Built
 
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
+### 1. Solidity Smart Contract
 
-To run the deployment to a local chain:
+* Built a minimal **ERC-20 token** using OpenZeppelin
+* Implemented with Solidity `^0.8.x`
+* Designed for easy frontend interaction and event emission
 
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
-```
+### 2. Local Deployment
 
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
+* Deployed the contract to a **local Hardhat blockchain**
+* Used a TypeScript deployment script compatible with **Hardhat v3**
+* Verified deployment and contract interaction locally
 
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
+### 3. React Frontend (Vite)
 
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
+* Scaffolded a React + TypeScript frontend using **Vite**
+* Removed all boilerplate demo code
+* Focused purely on Web3 interaction components
 
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
+### 4. Ethers.js v6 Integration
 
-After setting the variable, you can run the deployment with the Sepolia network:
+* Used **Ethers v6** in the browser
+* Created a `BrowserProvider` connected to MetaMask
+* Instantiated the smart contract using ABI + address
 
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
-```
+### 5. MetaMask Wallet Connection
+
+* Implemented wallet connection logic
+* Requested account access via MetaMask
+* Displayed the connected wallet address in the UI
+
+### 6. Reading Live On-Chain Data
+
+* Read ERC-20 token balances directly from the blockchain
+* Displayed live on-chain data in the React UI
+* Confirmed full frontend → blockchain connectivity
+
+---
+
+## 🧠 Key Learning Outcomes
+
+This project demonstrates:
+
+* How a frontend communicates with a smart contract
+* How wallets act as the bridge between users and the blockchain
+* How contract ABIs and addresses are used in frontend applications
+* How local blockchain development mirrors real network architecture
+* How to structure a dApp project cleanly and intentionally
+
+This architecture forms the **foundation that more advanced dApps build on**.
+
+---
+
+## 🚀 Why This Project Matters
+
+This repository acts as:
+
+* A **reference architecture** for future fullstack dApps
+* A clean example of **React + Solidity integration**
+* A checkpoint before moving on to more complex systems (oracles, indexing, backends)
+
+In later stages of my Blockchain study roadmap (Month 3; Week 12), this structure will be used as a template to create a **fullstack dApp** with additional infrastructure and features.
+
+---
+
+## 🛠️ Tech Stack
+
+* Solidity
+* Hardhat v3
+* OpenZeppelin Contracts
+* React + TypeScript (Vite)
+* Ethers.js v6
+* MetaMask
+
+---
